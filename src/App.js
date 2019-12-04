@@ -1,6 +1,10 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { connect } from 'react-redux';
 import { CssBaseline } from '@material-ui/core';
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
+import PropTypes from 'prop-types';
+
+import { fetchRepositories } from './redux/actions';
 
 import './App.css';
 
@@ -15,7 +19,15 @@ const outerTheme = createMuiTheme({
     }
 });
 
-function App() {
+function App({fetchRepositories}) {
+    useEffect(() => {
+        console.log(11111);
+        
+        fetchRepositories();
+    }, []);
+
+    // fetchRepositories();
+
     return (
         <ThemeProvider theme={outerTheme}>
             <div className="App">
@@ -28,5 +40,9 @@ function App() {
         </ThemeProvider>
     );
 }
+    
+export default connect(null, {fetchRepositories})(App);
 
-export default App;
+App.propTypes = {
+    fetchRepositories: PropTypes.func.isRequired
+};
