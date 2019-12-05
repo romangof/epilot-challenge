@@ -17,14 +17,12 @@ function* fetchRepositories(payload) {
     
 }
 
-// function* watchFetchRepositories() {
-export default function* rootSaga() {
+function* watchFetchRepositories() {
     yield takeEvery(FETCH_REPOSITORIES, fetchRepositories);
 }
 
-// export default function rootSaga() {
-    // yield takeLatest(FETCH_REPOSITORIES, fetchRepositories);
-    // yield all([
-    //     watchFetchRepositories()
-    // ]);
-// }
+export default function* rootSaga() {
+    yield all([
+        watchFetchRepositories()
+    ]);
+}
