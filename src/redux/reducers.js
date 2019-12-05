@@ -1,5 +1,5 @@
 import { 
-    FETCH_REPOSITORIES, REQUEST_SUCCESS, REQUEST_ERROR
+    CLEAR_REPOSITORIES, FETCH_REPOSITORIES, REQUEST_SUCCESS, REQUEST_ERROR
 } from './actions';
 
 const initialState = {
@@ -19,7 +19,10 @@ export function getRepositories(state = initialState, {type, payload}) {
                 loading: false,
                 repositories: payload.repositories,
                 username: payload.username
+
             };
+        case CLEAR_REPOSITORIES:
+            return initialState;
         default:
             return state;
     }

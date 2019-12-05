@@ -6,6 +6,7 @@ import PropTypes from 'prop-types';
 
 import { fetchRepositories } from './redux/actions';
 import TextInputCard from './components/TextInputCard';
+import RepositoriesList from './components/repositoriesList';
 
 import './App.css';
 
@@ -26,10 +27,11 @@ function App({loading, repositories, fetchRepositories}) {
     return (
         <ThemeProvider theme={outerTheme}>
             <Container className='base-container'>
-                {!loading 
-                    ? <TextInputCard submitAction={user => fetchRepositories({url: `${API}/users/${user}/repos`, user})} />
-                    : <p>Loading</p>
+                {loading && <p>Loading</p>}
+                {!loading && !repositories.length &&
+                    <TextInputCard submitAction={user => fetchRepositories({url: `${API}/users/${user}/repos`, user})} />
                 }
+                {!!repositories.length && <RepositoriesList />}
             </Container>
 
             <CssBaseline />
@@ -40,6 +42,7 @@ function App({loading, repositories, fetchRepositories}) {
 function selector(state) {
     return {
         loading: state.loading,
+        username: state.username,
         repositories: state.repositories
     };
 }
@@ -47,6 +50,7 @@ function selector(state) {
 export default connect(selector, {fetchRepositories})(App);
 
 App.propTypes = {
+    username: PropTypes.string,
     repositories: PropTypes.array,
     loading: PropTypes.bool.isRequired,
     fetchRepositories: PropTypes.func.isRequired
