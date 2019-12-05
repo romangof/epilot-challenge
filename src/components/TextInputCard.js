@@ -21,10 +21,9 @@ export default function TextInputCard({submitAction}) {
     const [value, setValue] = useState('');
 
     const handleChange = event => setValue(event.target.value);
-
-    submitAction = (event) => { 
-        submitAction();
+    const submitActionWrapper = event => {
         event.preventDefault();
+        submitAction();
     };
 
     const inputButtons = (
@@ -40,7 +39,7 @@ export default function TextInputCard({submitAction}) {
 
     return (
         <Paper className={classes.root}>
-            <form className={classes.root} noValidate autoComplete="off" onSubmit={submitAction}>
+            <form className={classes.root} noValidate autoComplete="off" onSubmit={submitActionWrapper}>
                 <TextField
                     fullWidth 
                     autoFocus

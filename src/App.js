@@ -29,14 +29,10 @@ function App({repositories, fetchRepositories}) {
 
     return (
         <ThemeProvider theme={outerTheme}>
-            {console.log(555, repositories)}
-            {/* <div className="App">
-                <header className="App-header"> */}
-            {/* </header>
-            </div> */}
+            {/* {console.log(555, repositories)} */}
 
             <Container className='base-container'>
-                <TextInputCard />
+                <TextInputCard submitAction={() => console.log(3333)} />
             </Container>
 
             <CssBaseline />
