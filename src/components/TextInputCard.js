@@ -8,9 +8,6 @@ const useStyles = makeStyles(theme =>
         root: {
             padding: theme.spacing(3, 2),
             justifyContent: 'center'
-        },
-        inputTypeSearch: {
-            color: '#f00'
         }
     }),
 );
@@ -23,7 +20,7 @@ export default function TextInputCard({submitAction}) {
     const handleChange = event => setValue(event.target.value);
     const submitWrapper = event => {
         event.preventDefault();
-        submitAction();
+        submitAction(value);
     };
 
     const inputButtons = (

@@ -4,9 +4,10 @@ import { FETCH_REPOSITORIES,requestSuccess, requestError } from './actions';
 
 function* fetchRepositories({payload}) {
     try {
-        yield call(get, payload);
-        
-        yield put(requestSuccess(payload));
+        const response = yield call(get, payload.url);
+        const repositories = response.data;
+
+        yield put(requestSuccess({repositories, username: payload.user}));
     } catch (error) {
         yield put(requestError(payload));
     }

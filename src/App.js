@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import { CssBaseline, Container } from '@material-ui/core';
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
@@ -9,7 +9,7 @@ import TextInputCard from './components/TextInputCard';
 
 import './App.css';
 
-// const API = 'https://api.github.com';
+const API = 'https://api.github.com';
 
 const outerTheme = createMuiTheme({
     palette: {
@@ -22,17 +22,14 @@ const outerTheme = createMuiTheme({
     }
 });
 
-function App({repositories, fetchRepositories}) {
-    useEffect(() => {
-        fetchRepositories({url: 'asdasd'});
-    }, []);
-
+function App({loading, repositories, fetchRepositories}) {
     return (
         <ThemeProvider theme={outerTheme}>
-            {/* {console.log(555, repositories)} */}
-
             <Container className='base-container'>
-                <TextInputCard submitAction={() => console.log(3333)} />
+                {!loading 
+                    ? <TextInputCard submitAction={user => fetchRepositories({url: `${API}/users/${user}/repos`, user})} />
+                    : <p>Loading</p>
+                }
             </Container>
 
             <CssBaseline />
@@ -42,6 +39,7 @@ function App({repositories, fetchRepositories}) {
 
 function selector(state) {
     return {
+        loading: state.loading,
         repositories: state.repositories
     };
 }
@@ -50,5 +48,6 @@ export default connect(selector, {fetchRepositories})(App);
 
 App.propTypes = {
     repositories: PropTypes.array,
+    loading: PropTypes.bool.isRequired,
     fetchRepositories: PropTypes.func.isRequired
 };
