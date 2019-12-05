@@ -1,22 +1,20 @@
-import { CHANGE_PAGE, FETCH_REPOSITORIES } from './actions';
+import { 
+    FETCH_REPOSITORIES, REQUEST_SUCCESS, REQUEST_ERROR
+} from './actions';
 
 const initialState = {
-    appState: {},
+    loading: false,
     repositories: []
 };
 
-export function changeDisplay(state = initialState.appState, {type, payload}) {
-    if (type === CHANGE_PAGE) {
-        return {...state, appState: { displayedPage: payload }};        
+export function getRepositories(state = initialState, {type, payload}) {
+    switch (type) {
+        case FETCH_REPOSITORIES:
+            return {...state, loading: true};
+        case REQUEST_SUCCESS:
+        case REQUEST_ERROR:
+            return {...state, loading: false, repositories: payload};
+        default:
+            return state;
     }
-
-    return state;
-}
-
-export function getRepositories(state = initialState.repositories, {type, payload}) {
-    if (type === FETCH_REPOSITORIES) {
-        return [...state, payload];
-    }
-
-    return state;
 }

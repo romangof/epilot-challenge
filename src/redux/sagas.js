@@ -1,20 +1,15 @@
 import { get } from 'axios';
 import { all, call, put, takeEvery } from 'redux-saga/effects';
-import { CHANGE_PAGE, FETCH_REPOSITORIES } from './actions';
+import { FETCH_REPOSITORIES,requestSuccess, requestError } from './actions';
 
-function* fetchRepositories(payload) {
+function* fetchRepositories({payload}) {
     try {
-        console.log(99999, payload);
-
-        yield put({ type: CHANGE_PAGE, payload: { status: 'loading' }});
-
         yield call(get, payload);
-
-        yield put({ type: CHANGE_PAGE, payload: { status: 'loaded' }});
+        
+        yield put(requestSuccess(payload));
     } catch (error) {
-        yield put({ type: CHANGE_PAGE, status: 'error', payload: error });
+        yield put(requestError(payload));
     }
-    
 }
 
 function* watchFetchRepositories() {

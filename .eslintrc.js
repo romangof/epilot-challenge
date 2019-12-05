@@ -27,7 +27,10 @@ module.exports = {
         "react/jsx-uses-vars": "error" ,
         'indent': [
             'error',
-            4
+            4,
+            { 
+                "SwitchCase": 1 
+            }
         ],
         'linebreak-style': [
             'error',

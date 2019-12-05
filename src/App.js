@@ -24,7 +24,7 @@ const outerTheme = createMuiTheme({
 
 function App({repositories, fetchRepositories}) {
     useEffect(() => {
-        fetchRepositories();
+        fetchRepositories({url: 'asdasd'});
     }, []);
 
     return (
